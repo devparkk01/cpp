@@ -1,5 +1,5 @@
 //  given an array , find all the duplicates that exist in  the array 
-//  array {3 ,5, 2, 4, 6 , 7 , 2 , 3 ,4 ,1, ,4, 1}   =>  3 , 4 , 2 , 1 
+//  array {3 ,5, 2, 4, 6 , 7 , 2 , 3 ,4 ,1, ,4, 1}   =>  3 , 4 , 2 , 1 (order does not matter)
 
 #include<iostream>
 #include<unordered_set>
