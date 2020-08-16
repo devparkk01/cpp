@@ -4,7 +4,7 @@ The task is to count the number of subarrays which add to a given number.
 A[] = {10 2 -2 -20 10} , sum = -10
 output :  3
 A[] = { 1 4 20 3 10 5 }  sum = 33 
-output :
+output : 1
 
 */
 // first technique is to use brute force : O(n*n) 

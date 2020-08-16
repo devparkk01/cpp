@@ -1,4 +1,4 @@
-/* Given an array arr of N integers. Find the contiguous sub-array with maximum sum.
+/* Given an array A[] of N integers. Find the contiguous sub-array with maximum sum.
 
 A[] = {1 2 3 -2 5}
 maxSum = 9

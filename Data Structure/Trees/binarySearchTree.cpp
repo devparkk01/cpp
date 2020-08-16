@@ -80,7 +80,7 @@ Node * Delete (Node * root , int item ) {
         // case 2 no right child 
         else if ( root->right == nullptr ) {
             Node * temp = root ; 
-            root = root->right ; 
+            root = root->left ; 
             delete temp  ; 
         }
         // case 3 , two children 

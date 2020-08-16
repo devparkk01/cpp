@@ -36,18 +36,19 @@ int minJumps (int *arr ,int n ) {
     if (n <= 1 ) return 0 ; 
     if ( arr[0] == 0) return -1 ; 
 
-    int maxReach = arr[0];  int steps = maxReach - 0 ; int jump =1 ; 
-
-    for (int i =1 ; i < n ; ++i)  {
+    int i = 0 ; 
+    int maxReach = arr[i];  int steps = maxReach - i ; int jump =1 ; 
+    i++ ; 
+    for ( i ; i < n ; ++i)  {
         if ( i == n-1) return jump ; 
 
         maxReach = max(maxReach , arr[i] + i ) ; 
         steps-- ; 
 
         if  ( steps == 0 ) {
-            jump++ ; 
-            if (i >= maxReach ) return -1 ; 
+            if (i == maxReach ) return -1 ; 
 
+            jump++ ; 
             steps = maxReach - i ; 
         }
     }
