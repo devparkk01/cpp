@@ -14,7 +14,6 @@ time  : O(n) , space : O(h)
 */
 
 //iterative approach (iterative inorder traversal )
-
 Node * bToDLL(Node *root)
 {
     if (root == NULL ) return root ; 
@@ -47,39 +46,31 @@ Node * bToDLL(Node *root)
     return head ;     
 }
 
-/*
 
 // recursive approach  
-void bToDLLUtil(Node *root, Node **head_ref)
-{
-    // Base cases
-    if(root == NULL)
-        return;
-
-    // Recursively convert right subtree
-    bToDLLUtil(root->right, head_ref);
-
-    // insert root into DLL
-    root->right = *head_ref;
-
-    // Change left pointer of previous head
-    if (*head_ref != NULL)
-        (*head_ref)->left = root;
-
-    // Change head of Doubly linked list
-    *head_ref = root;
-
-    // Recursively convert left subtree
-    bToDLLUtil(root->left, head_ref);
+// pass pointers of head and tail of the list by reference . 
+void bToDLLUtil (Node *root , Node *&head , Node*&tail ) {
+    if (!root ) return ; 
+    //  traverse left subtree
+    bToDLLUtil(root->left , head , tail ) ; 
+    // make decisions at current node
+    if (head == NULL) { // we haven't added any node in the list , so this is the first node 
+        head = root ; tail = root ; 
+    }
+    else { // add this node to the end of the list 
+        tail->right = root ;
+        root->left = tail ; 
+        tail = root ; 
+    }
+    // traverse right subtree
+    bToDLLUtil(root->right , head , tail ) ; 
 }
 
-Node* bToDLL(Node *root)
-{
-    Node *head = NULL;
-    bToDLLUtil(root,&head);
-    return head;
-    
+Node * bToDLL (Node * root ) {
+    Node *head = NULL, *tail = NULL ; 
+    bToDLLUtil(root , head , tail ) ;
+    return head ; 
 }
 
 
-*/
+
