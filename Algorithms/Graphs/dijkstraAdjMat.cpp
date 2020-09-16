@@ -4,6 +4,9 @@
 time : O(V*V) , space : O(V)
 */
 
+#include<bits/stdc++.h>
+using namespace std ; 
+
 
 
 int minDist (int V ,vector<int> &dist , vector<bool> & sptSet   ){
@@ -35,4 +38,25 @@ vector <int> dijkstra(vector<vector<int>> &g, int src, int V)
       
     }
     return dist ; 
+}
+
+
+signed main () {
+    // fastio ; 
+    int V, E ; cin >> V >> E ; 
+
+    vector<vector<int >>graph(V , vector<int>(V)) ; 
+    int u1 , u2 , wt ; 
+    for(int i = 0 ;i < E ; ++i ) {
+        cin >> u1  >> u2 >> wt ; 
+        u1-- ; u2-- ;
+        graph[u1][u2] = wt ; 
+    }
+
+    vector<int> res = dijkstra(graph , 0 , V) ; 
+    for(int i = 0 ;i < V ; ++i ) {
+        cout << res[i] << " " ; 
+    }
+
+    return 0 ; 
 }

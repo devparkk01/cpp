@@ -37,7 +37,6 @@ signed  main() {
 	print(head ) ; 
 	change(head ) ;
 	print(head ); 
-
 	
 	return 0;
 }
