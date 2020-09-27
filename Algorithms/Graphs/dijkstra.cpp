@@ -38,6 +38,7 @@ using namespace std ;
 
 void shortestPath(vector<ipair> g[] , int V , int src ) {
 	vector<int> dis(V , INF ) ; 
+	vector<bool>sptSet(V) ; 
 	priority_queue<ipair , vector<ipair> , greater<ipair >> pq ; 
 	// ipair = > { weight , vertex }
 	pq.push({0 , src }) ; 
@@ -46,9 +47,10 @@ void shortestPath(vector<ipair> g[] , int V , int src ) {
 	while (!pq.empty()) {
 		u = pq.top().second ; 
 		pq.pop() ; 
-		for (ipair x : g[u]) {
+		sptSet[u] = true ; 
+		for (ipair & x : g[u]) {
 			v = x.first ;  wt = x.second ; 
-			if ( dis[v] > dis[u] + wt) {
+			if (sptSet[v] == false &&  dis[v] > dis[u] + wt) {
 				dis[v] = dis[u] + wt ; 
 				pq.push({dis[v] , v }) ; 
 			}
