@@ -4,6 +4,8 @@ cell by which total cost incurred is minimum. You can move in 4 directions : up,
 left and right.
 Note : It is assumed that negative cost cycles do not exist in input matrix.
 
+see optimized dijkstra implementation , it's same as that . 
+
 */
 
 
@@ -46,15 +48,22 @@ signed main()
 	    vector<vector<int>>dist(n , vector<int>(n ,INT_MAX ) ) ; 
 	    dist[0][0] = grid[0][0] ; 
 	    vector<vector<bool>>visited(n , vector<bool>(n));
+	    // visited is to keep track of those cells for which we have already found shortest path 
+	    // This is so that we don't find shortest path for these cells again . 
 	    priority_queue<cell , vector<cell> , compare > pq ; 
 	    pq.push({0 , 0 , dist[0][0]}) ;
 	    cell temp ; int x , y   ;
 	    while (!pq.empty() ){
 	        temp = pq.top() ; pq.pop() ; 
 	        x = temp.x ; y = temp.y ; 
-	        if (visited[x][y]) continue ; 
-	        visited[x][y] = true; 
-	  
+	        if (visited[x][y]) continue ;//have already found shortest path for this cell,so skip it
+	        visited[x][y] = true;// else , just now we found shortest path for this cell  
+
+	        // updating shortest path for adjacent cells . 
+
+	  // first condition :adjacent Cell is valid 
+	  // second condition : we haven't found shortest path for this adjacent cell 
+	  // Third condition : There is a shorter path to reach this adjacent cell from 0,0 via x , y . 
 	        if (isSafe(x-1 , y , n ) && !visited[x-1][y] && dist[x-1][y] > dist[x][y] + grid[x-1][y] ) {
 	            dist[x-1][y] = dist[x][y] + grid[x-1][y] ; 
 	            pq.push({x-1 , y , dist[x-1][y]}) ; 

@@ -1,4 +1,7 @@
-/*Given a graph and a source vertex in graph, find shortest paths from source to all 
+/*  Here is the simple implementation of dijkstra using priority queue . for optimized 
+implementation see the optimized dijkstra . 
+
+Given a graph and a source vertex in graph, find shortest paths from source to all 
 vertices in the given graph 
 we use dijkstra algo . It is based on greedy algorithm 
 Dijkstra can be used for both directed and undirected graph 
@@ -38,19 +41,18 @@ using namespace std ;
 
 void shortestPath(vector<ipair> g[] , int V , int src ) {
 	vector<int> dis(V , INF ) ; 
-	vector<bool>sptSet(V) ; 
 	priority_queue<ipair , vector<ipair> , greater<ipair >> pq ; 
 	// ipair = > { weight , vertex }
-	pq.push({0 , src }) ; 
 	dis[src] = 0 ; 
+	pq.push({dis[src] , src }) ; 
+
 	int u , v , wt ; 
 	while (!pq.empty()) {
 		u = pq.top().second ; 
 		pq.pop() ; 
-		sptSet[u] = true ; 
 		for (ipair & x : g[u]) {
 			v = x.first ;  wt = x.second ; 
-			if (sptSet[v] == false &&  dis[v] > dis[u] + wt) {
+			if ( dis[v] > dis[u] + wt) {
 				dis[v] = dis[u] + wt ; 
 				pq.push({dis[v] , v }) ; 
 			}
