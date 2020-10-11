@@ -2,53 +2,45 @@
 like in a single linked list. The second pointer however can point to any node in the list 
 and not just the previous node . We've to clone this linked list . 	
 
-No extra space will be used here . 
-time : O(n) , space : O(1) 
+we will use extra space here . That's y this is not the efficient approach . for efficient approach
+check cloning linked list problem .
 
+We will be using hashmap for extra space here . 
+time : O(n) , space : O(n) 
 */
 
 
 #include<bits/stdc++.h>
 using namespace std ; 
 
-
 class Node {
 public:
-	int data ; Node *next , *arb ;
+	int data ; Node *next , *arb ;  
 	Node(int data ) {
 		this->data = data ; 
-		next = NULL ; arb = NULL ; 
+		next = NULL ; 
+		arb = NULL ;
 	}
-}; 
+};
 
-Node *clone ( Node *head) {
-	Node *curr = head , *temp ; 
+Node * cloneExtraSpace(Node *head ) {
+	unordered_map<Node* , Node*> umap ; 
+	Node * curr = head ; 
+	Node *temp ; 
 	while (curr != NULL ) {
-		temp = new Node(curr->data ) ;
-		temp->next = curr->next ; 
-		curr->next = temp ; 
-		curr = curr->next->next ; // or temp->next 
-	}
-	
-    curr = head ; 
-	while (curr != NULL ) {
-	    temp = curr->next ; 
-		temp->arb = (curr->arb) ? curr->arb->next : NULL ; 
-		curr = curr->next->next ; 
+		temp = new Node(curr->data) ; 
+		umap[curr ] = temp ;
+		curr = curr->next ; 
 	}
 	curr = head ; 
-	Node *copyHead = curr->next ; 
-	temp = copyHead ; 
-
 	while (curr != NULL ) {
-		curr->next = (curr->next ) ? curr->next->next : NULL ; 
+		temp = umap[curr]; 
+		temp->next = umap[curr->next] ; 
+		temp->arb = umap[curr->arb] ;
 		curr = curr->next ; 
-
-		temp->next = (temp->next ) ? temp->next->next : NULL ;
-		temp = temp->next ;
 	}
-	return copyHead ;   
 
+	return umap[head] ; // returning head of our copy list 
 }
 
 void print(Node *head ) {
@@ -59,7 +51,8 @@ void print(Node *head ) {
 	cout << endl; 
 }
 
-// for printing  arbitraty pointers of the node
+// for printing  arbitraty pointers of the node 
+
 void printArb ( Node *head ) {
 	Node*curr = head ;
 	while(curr != NULL ) {
@@ -85,11 +78,12 @@ signed main() {
 	print(list ) ; 
 	printArb(list);
 
-	Node * copy = clone(list ) ;
+	Node * copy = cloneExtraSpace(list ) ;
 	cout << "Copy list " << endl ; 
 	print(copy ) ;
 	printArb(copy) ;
 
 
-	return 0 ; 
+
+	return 0; 
 }

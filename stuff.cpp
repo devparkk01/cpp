@@ -1,43 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define fastio ios_base::sync_with_stdio(false) ;cin.tie(NULL); cout.tie(NULL) ;
 
-
-class Node {
-	public : 
-	int data ;
-	Node *next ;
-	Node (int data ) {
-		this->data = data ; 
-		next = NULL ;
-	}
-} ; 
-
-
-void print(Node *head ) {
-	Node *curr = head ;
-	while (curr != NULL ) {
-		cout << curr->data << " " ;
-		curr = curr->next ; 
-	}
-	cout << endl;  
+void dfs(vector<int>adj[] , vector<bool>&visited, int u , int &count ) {
+    visited[u] = true ; 
+    count++ ; 
+    for(int &v : adj[u]) {
+        if (!visited[v]) {
+            dfs(adj , visited, v , count ) ; 
+        }
+    }
 }
 
+int main(){
+    fastio ;
+    int q;  cin >> q;  
+    while(q-- ) {
+        int n , m , lib, road ; cin >> n >> m >> lib>> road ; 
+        vector<int>adj[n] ;
+        int u , v; 
+        for(int i = 0 ; i < m ; ++i ) {
+            cin >> u >> v; u-- ; v-- ;  
+            adj[u].push_back(v); 
+            adj[v].push_back(u) ; 
+        }
+        vector<bool>visited(n) ; 
+        long long cost = 0 ; int count ; 
+        for(int i = 0 ;i < n ; ++i ) {
+            if ( !visited[i] ) {
+                count= 0 ; 
+                dfs(adj , visited,  i , count ) ; 
+                cost += (lib < road ) ? count * lib :( lib + (count-1)*road) ;
+            }
+        }
+        cout << cost << endl;
 
-void change (Node * &head ) {
-	head = head->next ; 
-	print(head ) ; 
+
+
+    }
+    return 0 ; 
 }
-
-
-signed  main() {
-	Node *head = new Node(10) ; 
-	head->next = new Node(20) ;
-	head->next->next = new Node(30) ; 
-
-	print(head ) ; 
-	change(head ) ;
-	print(head ); 
-	
-	return 0;
-}
-

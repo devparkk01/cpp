@@ -1,33 +1,30 @@
 /*
 First few catalan numbers =  1, 1, 2, 5, 14, 42, 132, 429, 1430 
-
-
+time : O(n*n) ,space: O(n)
 */
 
-#include<iostream>
-#define endl '\n'
+/* We don't have boost/multiprecision/cpp_int.hpp library on our machine . So don't run it. 
+*/
+#include<bits/stdc++.h>
+#include<boost/multiprecision/cpp_int.hpp>
+using namespace std;
+using boost::multiprecision::cpp_int ; 
 
-using namespace std ; 
+int main(){
 
-// time complexity O(n^2) and space complexity : O(n)
-int catalan (int n ) {
-    int * cat = new int[n+1] ;
-    cat[0] = 1 ; cat[1] = 1; 
-
-    for (int i = 2 ; i <= n ; ++i) {
-        cat[i] = 0 ; 
-        for (int j = 0 ; j < i ; ++j ) {
-            cat[i] += cat[j]* cat[i-1-j] ; 
+    vector<cpp_int>c(101) ; 
+    c[0] = 1 ; 
+    for(int i = 1 ; i <=100 ; ++i ) {
+        for(int j = 0 ; j < i ; ++j ) {
+            c[i] += (c[j] * c[i-1-j]) ; 
         }
     }
-    return cat[n] ; 
-
-}
-
-int main() {
-    cout << "Enter n  : "  ; int n ; 
-    cin >> n ;
-    cout << catalan (n ) << endl; 
-
-    return 0 ; 
+    
+    int t;  cin >>t ; 
+    while(t-- ) {
+        int n  ; cin >> n; 
+        cout << c[n] << endl; 
+    }
+    
+    return 0;
 }
