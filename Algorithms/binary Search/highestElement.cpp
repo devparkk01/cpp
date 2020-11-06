@@ -1,5 +1,6 @@
 /*Given an array in such a way that the elements stored in array are in increasing order
 initially and then after reaching to a peak element , elements stored are in decreasing order.
+(This is called a bitonic array)
 Find the highest element.   Note: A[i] != A[i+1]
 */
 

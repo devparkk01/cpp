@@ -1,11 +1,7 @@
 /*A Hamiltonian path, is a path in an undirected or directed graph that visits each vertex exactly
 once. Given an undirected graph  the task is to check if a Hamiltonian path is present in 
 it or not.
-
-
-
 */
-
 
 
 #include<bits/stdc++.h>
