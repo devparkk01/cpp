@@ -18,16 +18,16 @@ void maxSubarrayK (int A[] , int n , int k ) {
 		}
 		q.push_back(i) ; 
 	}
-	for(int i = 0 ; i < n-k; ++i ) {
+	for(int i = k ; i < n; ++i ) {
 		cout << A[q.front()] << " " ;
 	// ----------sliding the window  ----------
 		// removing first element from the window 
-		if( q.front() == i) q.pop_front() ; 
+		if( q.front() == i - k) q.pop_front() ; 
 		// adding new element into the window 
-		while(!q.empty() && A[i+k] >= A[q.back()]) {
+		while(!q.empty() && A[i] >= A[q.back()]) {
 			q.pop_back() ; 
 		}
-		q.push_back(i+k) ; 
+		q.push_back(i) ; 
 	}
 	cout << A[q.front()] << endl; 
 }
