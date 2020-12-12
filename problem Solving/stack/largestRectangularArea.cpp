@@ -7,6 +7,8 @@ all bars have same width and the width is 1 unit.
 #include<bits/stdc++.h>
 using namespace std ;
 #define f(i ,k , n ) for(int i = k ; i < n ; ++i)
+#define ll long long
+#define endl '\n'
 
 
 /* Naive solution :
@@ -15,41 +17,30 @@ using namespace std ;
 */
 
 /* Stack solution */
-
 int maxRectArea(vector<int>&a ) {
 	int n = a.size() ;
 	int maxArea = 0 ;
 	int curArea  ;
 	stack<int>s ;
-	f(i , 0 , n ) {
-		if ( s.empty() ) {
-			s.push(i) ;
-			curArea = a[i] * (i + 1 ) ;
-			maxArea = max(maxArea , curArea) ;
-		}
-		else if ( a[i] > a[s.top()]) {
-			s.push(i) ;
+	int hgt ;
+	int i = 0 ;
+	while ( i < n ) {
+		if (s.empty() || a[s.top()] <= a[i]) {
+			s.push(i) ; i++ ;
 		}
 		else {
-			while (!s.empty() && a[i] <= a[s.top()])
-				s.pop() ;
-			if (s.empty()) curArea = a[i] * (i + 1 ) ;
-			else curArea = a[i] * ( i - s.top()) ;
-
-			s.push(i) ;
-
-			maxArea = max(maxArea , curArea) ;
+			hgt = a[s.top()] ; s.pop() ;
+			if ( s.empty() ) curArea = hgt * i ;
+			else curArea = hgt * (i - 1 - s.top() ) ;
+			maxArea = max(curArea , maxArea) ;
 		}
 	}
-	if ( !s.empty()) {
-		int last = s.top() ;
-		while (!s.empty()) {
-			curArea = a[s.top()] * (last - s.top() + 1 ) ;
-			maxArea = max(maxArea , curArea) ;
-			s.pop() ;
-		}
+	while (!s.empty()) {
+		hgt = a[s.top()] ; s.pop() ;
+		if (s.empty() ) curArea = hgt * i ;
+		else curArea = hgt * (i - 1 - s.top() ) ;
+		maxArea = max(curArea , maxArea) ;
 	}
-
 	return maxArea ;
 
 }
