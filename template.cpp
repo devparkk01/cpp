@@ -1,15 +1,22 @@
 #include<bits/stdc++.h>
-using namespace std ; 
-#define fastio ios_base::sync_with_stdio(false) ; cin.tie(NULL) ; 
+using namespace std ;
+#define fastio ios_base::sync_with_stdio(false) ; cin.tie(NULL) ;
 #define endl '\n'
-#define f(i , k , n ) for(int i = k ; i < n ; ++i ) 
-
-
-
+#define ll long long
+#define f(i , k , n ) for(int i = k ; i < n ; ++i)
+#define ip pair<int , int >
+#define um unordered_map<int , int >
+#define us unordered_set<int >
+#define vec vector
 
 signed main () {
-	fastio ; 
-	int x ; cin >> x ; 
-	cout << x ;
-	return 0 ; 
+#ifndef ONLINE_JUDGE
+	freopen("input1.txt" , "r" , stdin) ;
+	freopen("output1.txt" , "w" , stdout) ;
+#endif
+
+	fastio  ;
+
+	return 0 ;
+
 }

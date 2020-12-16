@@ -12,33 +12,38 @@ using namespace std ;
 
 
 /* Naive solution :
-
+A simple solution is to one by one consider all bars as starting points and calculate area of all
+rectangles starting with every bar. Finally return maximum of all possible area.
+time : O(n*n)
 
 */
 
-/* Stack solution */
-int maxRectArea(vector<int>&a ) {
-	int n = a.size() ;
+/* Stack solution
+time : O(n) , since every height is pushed and popped only once, time complexity is O(n)
+
+*/
+int maxRectArea(vector<int>&hist ) {
+	int n = hist.size() ;
 	int maxArea = 0 ;
 	int curArea  ;
 	stack<int>s ;
-	int hgt ;
+	int poppedHgt ;
 	int i = 0 ;
 	while ( i < n ) {
-		if (s.empty() || a[s.top()] <= a[i]) {
+		if (s.empty() || hist[s.top()] <= hist[i]) {
 			s.push(i) ; i++ ;
 		}
 		else {
-			hgt = a[s.top()] ; s.pop() ;
-			if ( s.empty() ) curArea = hgt * i ;
-			else curArea = hgt * (i - 1 - s.top() ) ;
+			poppedHgt = hist[s.top()] ; s.pop() ;
+			if ( s.empty() ) curArea = poppedHgt * i ;
+			else curArea = poppedHgt * (i - 1 - s.top() ) ;
 			maxArea = max(curArea , maxArea) ;
 		}
 	}
 	while (!s.empty()) {
-		hgt = a[s.top()] ; s.pop() ;
-		if (s.empty() ) curArea = hgt * i ;
-		else curArea = hgt * (i - 1 - s.top() ) ;
+		poppedHgt = hist[s.top()] ; s.pop() ;
+		if (s.empty() ) curArea = poppedHgt * i ;
+		else curArea = poppedHgt * (i - 1 - s.top() ) ;
 		maxArea = max(curArea , maxArea) ;
 	}
 	return maxArea ;
