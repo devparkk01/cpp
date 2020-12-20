@@ -1,14 +1,14 @@
 #include<bits/stdc++.h>
-using namespace std ; 
+using namespace std ;
 
 // time complexity 0(V+E) , space complexity 0(V)
 
-void dfsUtil (vector<int> g[] , vector<bool> &seen ,vector<int>&trav,int v){
-    seen[v] = 1 ; 
+void dfsUtil (vector<int> g[] , vector<bool> &seen , vector<int>&trav, int v) {
+    seen[v] = 1 ;
     trav.push_back(v) ;
-    for(int x : g[v] ) {
+    for (int x : g[v] ) {
         if ( !seen[x]) {
-            dfsUtil(g , seen, trav , x ) ; 
+            dfsUtil(g , seen, trav , x ) ;
         }
     }
 }
@@ -16,8 +16,8 @@ void dfsUtil (vector<int> g[] , vector<bool> &seen ,vector<int>&trav,int v){
 
 vector <int> dfs(vector<int> g[], int N , int start )
 {
-    vector<int> trav ; trav.reserve(N) ; 
-    vector<bool>seen(N) ; 
+    vector<int> trav ; trav.reserve(N) ;
+    vector<bool>seen(N) ;
     dfsUtil(g , seen , trav , start) ;
-    return trav ; 
+    return trav ;
 }
