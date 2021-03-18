@@ -8,7 +8,6 @@ using namespace std ;
 #define um unordered_map<int , int >
 #define us unordered_set<int >
 #define vec vector
-
 signed main () {
 #ifndef ONLINE_JUDGE
 	freopen("input1.txt" , "r" , stdin) ;
