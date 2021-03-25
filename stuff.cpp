@@ -1,42 +1,49 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define fastio ios_base::sync_with_stdio(false) ;cin.tie(NULL); cout.tie(NULL) ;
+#define ll long long
+int  mod = 1000000007;
 
-void dfs(vector<int>adj[] , vector<bool>&visited, int u , int &count ) {
-    visited[u] = true ; 
-    count++ ; 
-    for(int &v : adj[u]) {
-        if (!visited[v]) {
-            dfs(adj , visited, v , count ) ; 
-        }
+bool RabinKarp(string text, string pat)
+{
+    if (text.empty() || pat.empty()) return 0;
+
+    ll pathash = 0;
+    //finding the hash for the pattern
+    int m = pat.length();
+
+    ll texthash = 0; ll temp ;
+    int n = text.length();
+    for (int i = 0; i < pat.length(); i++)
+    {   //cout << m - i -1 <<  " " << pat[i] - 'a' << endl;
+        temp = (ll)pow(26 , m - i - 1 )   ;
+        cout << temp << endl;
+        temp = (pat[i] - 'a') * temp ;
+        pathash =  (pathash  + temp  )  ;
+        // cout << pathash << endl;
+
+        ll temp1  = (ll )pow(26 , n - i - 1 ) % mod  ;
+        temp1 = (text[i] - 'a') * temp1  ;
+        texthash = (texthash % mod + temp1 % mod ) % mod ;
+        // cout << texthash << endl ;
+
     }
+    cout << texthash << endl;
+    cout << pathash << endl;
+
+    if (pathash == texthash) return 1;
+
+    return 0;
+
 }
 
-int main(){
-    fastio ;
-    int q;  cin >> q;  
-    while(q-- ) {
-        int n , m , lib, road ; cin >> n >> m >> lib>> road ; 
-        vector<int>adj[n] ;
-        int u , v; 
-        for(int i = 0 ; i < m ; ++i ) {
-            cin >> u >> v; u-- ; v-- ;  
-            adj[u].push_back(v); 
-            adj[v].push_back(u) ; 
-        }
-        vector<bool>visited(n) ; 
-        long long cost = 0 ; int count ; 
-        for(int i = 0 ;i < n ; ++i ) {
-            if ( !visited[i] ) {
-                count= 0 ; 
-                dfs(adj , visited,  i , count ) ; 
-                cost += (lib < road ) ? count * lib :( lib + (count-1)*road) ;
-            }
-        }
-        cout << cost << endl;
 
 
+int main() {
+    cout << RabinKarp("abcde" ,  "abcde" ) << endl ;
+    // ll x = (ll)pow(26 , 1 )   ;
+    // x = x % mod ;
+    // cout << x  << endl;
 
-    }
-    return 0 ; 
+
+    return 0;
 }
