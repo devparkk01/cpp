@@ -10,6 +10,10 @@ Base of the lower box should be strictly larger than that of the new box we're g
 This is in terms of both length and width, not just in terms of area. So, two boxes with same
 base cannot be placed one over the other.
 
+
+This question is a variation of msis problem , which is a variation of lis problem
+time : O(n *n)  , space : O(n)
+
 */
 
 
@@ -35,7 +39,7 @@ int maxHeight(int height[], int width[], int length[], int n) {
 
 	box config[len] ;
 	int index = 0 ;
-
+	// step 1 : generate all configurations / rotations
 	for (int i = 0 ; i < n ; ++i ) {
 		config[index].h = height[i] ;
 		config[index].w = max(width[i] , length[i]) ;
@@ -51,22 +55,21 @@ int maxHeight(int height[], int width[], int length[], int n) {
 		index++ ;
 
 	}
-
+	// step 2 : sort the config[] in ascending order of base area
 	sort(config , config + len , compare ) ;
 
 	int msh[len] ;
-	for (int i = 0 ; i < len ; ++i ) { msh[i] = config[i].h ; }
 
-
-	for (int i = 1 ; i < len ; ++i ) {
+	// step 3 : apply lis (msis) algo to find max stack height ending at ith index
+	for (int i = 0 ; i < len ; ++i ) {
 		int temp = 0 ;
 		for (int j = 0 ; j < i ; ++j ) {
 			if ( config[j].w < config[i].w && config[j].l < config[i].l )
 				temp = max(temp , msh[j] )  ;
 		}
-		msh[i] += temp ;
+		msh[i] = temp + config[i].h;
 	}
-
+	// return max value in msh[]
 	return *max_element(msh , msh  + len ) ;
 
 }
