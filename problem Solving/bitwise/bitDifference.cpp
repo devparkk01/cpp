@@ -1,6 +1,9 @@
 /*You are given two numbers A and B. The task is to count the number of bits needed
  to be flipped to convert A to B.
 
+
+same question : count the number of positions at which the corresponding bits are different
+
 */
 
 
@@ -18,5 +21,14 @@ int countsBitsFlip(int a , int b ) {
 		c++ ;
 	}
 	return c ;
+
+}
+
+signed main() {
+	int a = 30 ;
+	int b = 13 ;
+	cout << countsBitsFlip(a, b ) << endl;
+
+	return 0 ;
 
 }
