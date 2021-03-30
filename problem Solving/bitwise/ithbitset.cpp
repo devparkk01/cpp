@@ -10,3 +10,9 @@ bool solve(int n , int i ) {
 	if ( n & f ) return true ;
 	else return false;
 }
+
+// other approach
+bool solve(int n , int i ) {
+	if (( 1 & (n >> (i - 1 ))) == 1 ) retur 1 ;
+	else return 0 ;
+}

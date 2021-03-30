@@ -13,7 +13,7 @@ using namespace std ;
 
 int countsBitsFlip(int a , int b ) {
 	int res = a ^ b ;
-	// now count the number of set bits in c
+	// now count the number of set bits in res
 	if ( res == 0 ) return 0 ;
 	int c = 0 ;
 	while ( res != 0 ) {
