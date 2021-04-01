@@ -1,7 +1,12 @@
 /*  https://leetcode.com/problems/xor-queries-of-a-subarray/
 
+Given the array arr of positive integers and the array queries where queries[i] = [Li, Ri],
+ for each query i compute the XOR of elements from Li to Ri (that is, arr[Li] xor arr[Li+1] xor
+ ... xor arr[Ri] ). Return an array containing the result for the given queries.
+
 */
 
+// time : O(n + q) , space : O(n )
 vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
 	int n = arr.size() ; int q =  queries.size() ;
 	vector<int>prefixXor(n) ;

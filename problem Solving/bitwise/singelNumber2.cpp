@@ -6,7 +6,7 @@ exactly once. Find the single element and return it.
 */
 
 /*  approach 1 : sort the array , and find out the element occuring once
-time : O(n logn  + n ) , space : O(1)
+time : O(nlogn  + n ) , space : O(1)
 */
 
 
@@ -27,10 +27,10 @@ int singleNumber(vector<int>& nums) {
 	return -1 ;
 }
 
-/* approach 3 :
-
-
-
+/* approach 3 : bit manipulation
+The idea is that total count of set bits of all numbers ( we can consider unset bits also ,
+but consider set for now ) at any position k is always in the form of either 3n + 1  or 3n .
+time : O(32n) = O(n) , space : O(1)
 */
 int singleNumber(vector<int>& nums) {
 	int ans = 0 ;

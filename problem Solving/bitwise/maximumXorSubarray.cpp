@@ -14,13 +14,6 @@ signed main () {
 	int n ; cin >> n ;
 	int a[n] ; f(i  ,  0 , n ) cin >> a[i] ;
 
-	int ans = a[0] ; int curXor = a[0] ;
-	f(i , 1 , n ) {
-		curXor  = max(curXor ^ a[i], a[i]) ;
-		ans = max(ans , curXor) ;
-		cout << curXor << endl;
-	}
-	cout << ans << endl;
 
 	return 0 ;
 
