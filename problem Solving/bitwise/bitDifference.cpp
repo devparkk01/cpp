@@ -20,7 +20,7 @@ f(5, 1) + f(5, 3) + f(5, 5) =
 for any pair count the number of bit differences , time : O(n * n )
 */
 /* approach2 2 :
-
+for each bit position , count no of set and unset bits
 
 */
 
