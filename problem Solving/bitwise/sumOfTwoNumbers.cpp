@@ -7,29 +7,24 @@ any of the arithmetic operators (+, ++, –, -, .. etc).
 #include <bits/stdc++.h>
 using namespace std;
 
-int Add(int x, int y)
+int Add(int a , int b )
 {
 	// Iterate till there is no carry
-	while (y != 0)
+	while (b != 0)
 	{
-		// carry now contains common
-		//set bits of x and y
-		int carry = x & y;
+		int sum = a ^ b ;
+		int carry = a & b ;
+		carry = carry << 1 ; // transferring the carry bits to next higher bit position
 
-		// Sum of bits of x and y where at
-		//least one of the bits is not set
-		x = x ^ y;
+		a = sum ;
 
-		// Carry is shifted by one so that adding
-		// it to x gives the required sum
-		y = carry << 1;
+		b = carry ;
 	}
-	return x;
+	return a;
 }
 
-// Driver code
 int main()
 {
-	cout << Add(15, 32);
+	cout << Add(-5, 32);
 	return 0;
 }
