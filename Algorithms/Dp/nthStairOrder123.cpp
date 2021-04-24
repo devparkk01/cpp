@@ -3,6 +3,7 @@ A child is running up a staircase with n steps and can hop either 1 step,
 2 steps, or 3 steps at a time. Implement a method to count how many possible ways
 the child can run up the stairs. Order does  matter .
 
+This problem is same as ways coin change where order does matter .
 */
 
 /*
