@@ -11,6 +11,9 @@ For example, if an array of 7 days prices is given as {100, 80, 60, 70, 60, 75, 
 
 
 #define ip pair<int , int >
+/*
+we can also do this by storing only indices in the stack .
+*/
 
 class Solution {
 public:
@@ -20,9 +23,13 @@ public:
 		stack<ip>s ;
 		vector<int>ans ; ans.reserve(n) ;
 		for (int i = 0 ; i < n ; ++i ) {
-			while (!s.empty() && price[i] >= s.top().first) s.pop() ;
 			if ( s.empty()) ans.push_back(i + 1 ) ;
-			else ans.push_back(i - s.top().second ) ;
+			else if ( price[i]  < s.top().first) ans.push_back(i - s.top().second ) ;
+			else {
+				while (!s.empty() && price[i] >= s.top().first) s.pop() ;
+				if ( s.empty()) ans.push_back(i + 1 ) ;
+				else ans.push_back(i - s.top().second ) ;
+			}
 
 			s.push({price[i] , i}) ;
 		}
