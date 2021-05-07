@@ -1,6 +1,9 @@
 
 stack<int>s ; // normal stack
 stack<int>ss ; // support stack
+/*
+time for all operations : O(1) ,space : O(n)
+*/
 
 
 void push( int a) {
