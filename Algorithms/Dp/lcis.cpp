@@ -11,8 +11,7 @@ int LCIS(int arr1[], int m, int arr2[], int n) {
 		for (int j = 0 ; j < n ; ++j ) {
 			if ( arr1[i] == arr2[j]) {
 				if ( temp + 1 > lcis[j]) {
-					lcis[j] =
-					    1 + temp ;
+					lcis[j] = 1 + temp ;
 				}
 			}
 			else if ( arr1[i] >  arr2[j]) {
