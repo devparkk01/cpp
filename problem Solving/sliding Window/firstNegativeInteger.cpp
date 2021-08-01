@@ -1,41 +1,45 @@
-/*Given an array and a positive integer k, print the first negative integer for each and every 
+/*Given an array and a positive integer k, print the first negative integer for each and every
 window(contiguous subarray) of size k,in case a window does not contain any negative value print  0 .
 
-a[]= {12 -1 -7 8 -15 30 16 28} , k = 3 
+a[]= {12 -1 -7 8 -15 30 16 28} , k = 3
 output : -1 -1 -7 -15 -15 0
 
 */
 
-// naive approach , time : O(n*k) 
+// naive approach , time : O(n*k)
 /* sliding window technique, time : O(n) , space : O(k)
 */
 
 #include<iostream>
 #include<queue>
 
-using namespace std ; 
+using namespace std ;
 
-void firstNegativeInteger(int a[] , int n , int k ) {
-	queue<int>q; // q stores all the negative elements in the current window being considered .
-	for (int i = 0 ;i < k ; ++i ) {
-		if (a[i] < 0 ) q.push(a[i]) ; // initializing q for the first window.  
+vector<long long> printFirstNegativeInteger(long long A[], long long N, long long K) {
+	vector<long long> ans ;
+	queue<int>q;
+	int i = 0 , j = 0 ;
+	int window;
+	while ( j < N) {
+		window = j - i + 1 ;
+		if (window < K) {
+			if (A[j] < 0) q.push(j) ;
+			j++ ;
+		}
+		else if (window == K ) {
+			if (A[j] < 0) q.push(j) ;
+			if (!q.empty()) {
+				int front = q.front() ;
+				ans.push_back(A[front]) ;
+			}
+			else ans.push_back(0) ;
+
+			if (!q.empty() && q.front() == i) q.pop() ;
+			i++ ; j++ ;
+		}
 	}
-	for(int i = 0 ; i < n-k ; ++i ) {
-		if ( !q.empty()) cout << q.front() << " " ; 
-		else cout << "0 " ; 
-		// prepare q for the next window . 
-		if (a[i] < 0 ) q.pop() ;
-		if (a[i+k] < 0 ) q.push(a[i+k]) ; 
-	}
-	if ( q.empty() ) cout << "0 " ; 
-	else cout << q.front() << " " ; 
-}
 
-signed main () {
-	int a[] = {12 , -1 , -7 , 8 , -15, 30 , 16 , 28} ; 
-	int n = sizeof(a) / sizeof(int) ; 
-	int k = 3; 
-	firstNegativeInteger(a , n , k ) ;
+	return ans ;
 
-	return 0 ;
+
 }

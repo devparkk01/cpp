@@ -1,64 +1,51 @@
-/* The n queen is the problem of placing N chess queens on an N*N chessboard  so that 
-no two queens attack each other . 
+/* The n queen is the problem of placing N chess queens on an N*N chessboard  so that
+no two queens attack each other .
 
-iterative approach
+
+https://practice.geeksforgeeks.org/problems/n-queen-problem0315/1
 */
 
 
 #include<bits/stdc++.h>
 #define endl '\n'
-using namespace std ; 
+using namespace std ;
 
-void print(vector<int>&placements ) {
-	cout << "[" ; 
-	for(int &x : placements )
-		cout << x+1 << " " ; 
-	cout << "] "  ; 
-}
+class Solution {
+public:
+	vector<vector<int>> nQueen(int n) {
+		vector<int>curPath(n , -1) ;
+		vector<vector<int>>ans ;
+		solve(0 , n, curPath , ans ) ;
 
-
-bool safeMove(vector<int>&placements , int r , int c ) {
-	for(int i = 0 ;  i < r ; ++i ) {
-		if (placements[i] == c || abs(i -r ) == abs(placements[i] - c ) ) 
-			return false ; 
+		return ans ;
 	}
-	return true ; 
-}
 
-void nqueens(int n ) {
-	if ( n == 2 || n == 3 ) cout << -1  ; 
-	vector<int>placements ; placements.reserve(n) ; 
-	int r = 0 ; int c = 0 ; 
-	while ( true ) {
-		while (c < n ) {
-			if ( safeMove(placements , r , c )) {
-				placements.push_back(c) ; 
-				if (r == n-1 ) {
-					print(placements) ; 
-					c++ ; placements.pop_back() ;
-				}
-				else {
-					r++ ; c = 0 ; 
-				}
+	void solve(int i , int n , vector<int>&curPath , vector<vector<int>>&ans) {
+
+		if (i == n ) {
+			vector<int>temp(curPath.begin() , curPath.end()) ;
+			for (int &x : temp ) x++ ;
+			ans.push_back(temp) ;
+			return ;
+		}
+
+		for (int j = 0 ; j < n ; ++j ) {
+			if (stable(i , j , curPath)) {
+				curPath[i] = j ;
+				solve(i + 1 , n , curPath , ans ) ;
+				curPath[i] = -1 ;
+
 			}
-			else 
-				c++ ; 
 		}
-		// backtracking step 
-		if (placements.empty())  break ; 
-		else {
-			r-- ; 
-			c = placements.back() ;  placements.pop_back() ; 
-			c++ ; 
-		}
-
 	}
-}
 
-signed main () {
-	int n ; cin >> n ; 
-	nqueens(n) ; 
-	cout << endl ; 
+	bool stable(int i , int j , vector<int>&curPath) {
+		for (int k = 0 ; k < i ; ++k) {
+			if (curPath[k] == j ) return false ;
+			if (abs(i - k ) == abs(j - curPath[k])) return false ;
+		}
+		return true ;
+	}
 
-	return 0 ; 
-}
+
+};
