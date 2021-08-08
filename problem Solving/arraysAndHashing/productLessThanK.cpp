@@ -12,23 +12,17 @@ just use two pointer approach , that's it
 class Solution {
 public:
     int countSubArrayProductLessThanK(const vector<int>& a, int n, long long k) {
-        long long curprod = a[0] ;
-        int i = 0 , j = 0 ;
+        long long curprod = 1 ;
+        int l = 0  ;
         long long ans = 0 ;
-        while (i <  n &&  j < n) {
-            if (curprod < k ) {
-                ans += (i - j + 1 ) ;
-                i++ ;
-                curprod *= a[i] ;
+        for (int r = 0 ; r < n ; ++r) {
+            curprod *= a[r] ;
+            while (l < r  &&  curprod >= k ) {
+                curprod = curprod / a[l] ;
+                l++ ;
             }
-            else {
-                curprod /= a[j ] ;
-                j++ ;
-                if (j > i) {
-                    i++;
-                    curprod = a[i] ;
-                }
-            }
+            if (curprod < k) ans += (r - l + 1 ) ;
+
         }
         return ans ;
     }
