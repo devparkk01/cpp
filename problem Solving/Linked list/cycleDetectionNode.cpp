@@ -9,6 +9,8 @@ the node from which the loop originates in constant space . The linked list sure
 1 -> 2 -> 7 ->3->5->9->
                  ↑____↓ 
                                 SHOULD RETURN 5 
+
+Based on floyd's cycle detection algorithm. 
 */
 
 
