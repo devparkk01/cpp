@@ -22,6 +22,27 @@ int highestElement(vector<int>&a )  {
 	return a[low] ;
 }
 
+int findMaximum(int arr[], int n) {
+	// code here
+	
+	int low = 0, high = n -1, mid ;
+	int ans = -1; 
+	
+	while ( low <= high) {
+		mid = low + (high - low) / 2; 
+		if ( arr[mid] > arr[mid - 1]) {
+			ans = mid; 
+			low = mid + 1; 
+			
+		} 
+		else {
+			high = mid -1; 
+		}
+	}
+	return arr[ans]; 
+	
+}
+
 signed main() {
 	vector<int>a = { 2 , 3, 4, 5 , 8 , 4 , 1 } ;
 	cout << highestElement(a) << endl;

@@ -14,7 +14,8 @@ time : O(log(min(n , m )))
 
 
 */
-
+#include<bits/stdc++.h>
+using namespace std;
 
 
 int kthElement(int arr1[], int arr2[], int n, int m, int k)
@@ -22,7 +23,11 @@ int kthElement(int arr1[], int arr2[], int n, int m, int k)
 	if (k == 1 ) return min(arr1[0] , arr2[0]) ;
 	if (n > m) return kthElement(arr2 , arr1 , m , n , k) ;
 
+	// if k <= m , then minimum we can select (0) elements in left partition from nums1
+	// if k > m , then minimum we can select (k-m) elements in left partition from nums1
 	int low = max(0 , k - m )  ;
+	// if k <= n, then maximum we can select (k) elements in left partition from nums1
+	// if k > n, then maximum we can select (n) elements in left partition from nums1
 	int high = min(k , n ) ;
 
 	while (low <= high ) {

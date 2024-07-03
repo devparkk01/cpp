@@ -5,6 +5,8 @@ time : O(log(min(n , m )))
 
 */
 
+#include<bits/stdc++.h>
+using namespace std;
 
 class Solution {
 public:
@@ -26,13 +28,17 @@ public:
 			int right2 = (cut2 != m ) ? nums2[cut2] : INT_MAX ;
 
 			if (left1 <= right2 && left2 <= right1) {
+				// total even no of elements in nums1 and nums2
 				if ((n + m) % 2 == 0 ) {
 					return (max(left1, left2) + min(right1 , right2)) / 2.0  ;
 				}
+				// total odd no of elements in nums1 and nums2
 				else return min(right1 , right2) ;
 
 			}
+			// move the cut to the left side
 			else if (left1 > right2) h = cut1 - 1;
+			// move the cut to the right side
 			else if (left2 > right1) l = cut1 + 1 ;
 
 		}

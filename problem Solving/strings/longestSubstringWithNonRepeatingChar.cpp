@@ -2,32 +2,32 @@
 https://leetcode.com/problems/longest-substring-without-repeating-characters/
 */
 
+#include<bits/stdc++.h>
+using namespace std;
 
 
 class Solution {
 public:
-	int lengthOfLongestSubstring(string s) {
-		unordered_set <char > hash ;
-		int ans = 0 ;
+    int lengthOfLongestSubstring(string s) {
+        int l = 0 ;
+        int n = s.length(); 
+        int maxLen = 0 ; 
 
-		int n = s.size() ; int l = 0 ;
-		for (int r = 0 ; r < n ; ++r) {
-			char c = s[r] ;
-			if (hash.find(c) == hash.end()) {
-				// not found
-				hash.insert(c) ;
-				ans = max(ans , r - l + 1 ) ;
-			}
-			else {
-				while (s[l] != c ) {
-					hash.erase(s[l]) ;
-					l++ ;
-				}
-				l++ ;
+        unordered_set<char> seen;
+        char c ;  
 
-			}
-		}
-		return ans ;
-	}
+        for(int r = 0; r < n ; ++r){
+            c = s[r];
+            if ( seen.find(c) != seen.end() ) { 
+                while( seen.find(c) != seen.end()) {
+                    seen.erase(s[l]);
+                    l++; 
+                }
+            }
+            seen.insert(c);
+            maxLen = max(maxLen , r - l + 1);
+        }
+        return maxLen; 
+    }
 };
 
