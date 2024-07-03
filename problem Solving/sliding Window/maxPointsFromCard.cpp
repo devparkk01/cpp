@@ -7,20 +7,20 @@ Here , we can use sliding window approach to find minimum sum of subarray of n-k
 
 class Solution {
 public:
-	int maxScore(vector<int>& cardPoints, int k) {
-		int n = cardPoints.size() ;
-		int sum = accumulate(cardPoints.begin() , cardPoints.end() , 0 ) ;
-		int window = n - k ;
-		int winSum = 0 ;
-		for (int i = 0  ; i < n - k ; ++i ) {
-			winSum += cardPoints[i] ;
-		}
-		int minSum = winSum ;
+    int maxScore(vector<int>& cardPoints, int k) {
+        int n = cardPoints.size();
+        int windowSum = 0 ;
 
-		for (int i = n - k ; i < n; ++i ) {
-			winSum += (cardPoints[i] - cardPoints[i - window ]) ;
-			minSum = min( minSum , winSum ) ;
-		}
-		return sum - minSum ;
-	}
+        for(int i = 0 ; i < k ; ++i) {
+            windowSum += cardPoints[i];
+        }
+        int ans = windowSum; 
+
+        for(int i = k - 1 ; i >= 0 ; --i) {
+            windowSum += (-cardPoints[i] + cardPoints[i + n - k]);
+            ans = max(ans, windowSum);
+        }
+    
+        return ans;
+    }
 };
