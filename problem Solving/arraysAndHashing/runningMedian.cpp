@@ -44,8 +44,10 @@ void medianTwo(int a[] , int n ) {
 
 	double med  ;
 	for(int i = 0 ;i < n ; ++i) {
-		if ( q1.empty() || q1.top() > a[i]) // push the element to the q1
-			q1.push(a[i]) ; // push the element to the q2
+		// push the element to the q1
+		if ( q1.empty() || q1.top() > a[i]) 
+			q1.push(a[i]) ; 
+		// push the element to the q2
 		else q2.push(a[i]) ; 
 
 		// balancing the heaps
