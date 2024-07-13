@@ -1,44 +1,60 @@
 /*
-
-https://practice.geeksforgeeks.org/problems/word-ladder/0
+https://leetcode.com/problems/word-ladder/
 
 just do bfs
+
+Approach:
+keep a queue which stores a pair ( word and no of steps needed to transform word)
+put the beginWord into the queue along with the no steps as 1. => q.push({beginWord, 1})
+
+Whenever we pop a new element(word, steps) from the queue, we need to check what all possible transformation
+of the popped string is available in the wordList. we can do that by changing each character of the popped
+string from `a` to `z`.  if the new word exists in the wordList, then push it into the queue with 
+total no steps as `steps + 1`. 
+
 */
 
 
+#include<bits/stdc++.h>
+using namespace std; 
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
 
-#define ip pair<int , int >
-int difference(string &a , string &b) {
-	int m = a.length() ; int c = 0 ;
-	for (int i = 0 ; i <  m ; ++i) {
-		if (a[i] != b[i]) c++ ;
-	}
-	return c ;
-}
+        queue<pair<string, int >> q; 
+		// stores all wordList in a hashSet. It can be also used to find out if a word 
+		// already been transformed, so we don't need to transform it again.
+		unordered_set<string>hashWordList(wordList.begin() , wordList.end());
+		// we can keep a hashset to keep track of words that have been transformed(similar to visited)
+        // unordered_set<string>transformed;
 
-int wordLadderLength(string startWord, string targetWord, vector<string>& wordList) {
-	int n = wordList.size() ;
-	queue<ip> q ;
-	q.push({ -1 , 1 }) ;
-	bool visited[n] = {0} ;
-	string s ;
-	while (!q.empty()) {
-		int index = q.front().first ; int steps = q.front().second ;
-		q.pop() ;
-		if (index == -1 ) s = startWord ;
-		else {
-			s = wordList[index] ;
-			if (s == targetWord) return steps ;
-		}
+        q.push({beginWord, 1});
+        hashWordList.erase(beginWord);
+        // transformed.insert(beginWord);
+
+        while(!q.empty()) {
+            auto [word, steps] = q.front(); q.pop(); 
+
+            if (word == endWord) {
+                return steps; 
+            }
+
+            for(int i = 0 ; i < word.size() ; ++i) {
+                int originalChar = word[i];
+                for(int c = 'a' ; c <= 'z' ; ++c) {
+                    word[i] = c;
+                    if ( hashWordList.find(word) != hashWordList.end()) {
+                        q.push({word, steps + 1});
+                        // transformed.insert(word);
+                        hashWordList.erase(word);
+                    }
+                }
+                word[i] = originalChar;
+            }
 
 
-		for (int i = 0 ; i < n ; ++i ) {
-			if (!visited[i] && difference(s , wordList[i]) == 1 ) {
-				q.push({i ,  steps + 1 }) ;
-				visited[i] = 1 ;
-			}
-		}
-	}
-	return 0  ;
+        }
+        return 0; 
 
-}
+    }
+};
