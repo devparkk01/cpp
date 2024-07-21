@@ -1,5 +1,5 @@
 /*
-https://practice.geeksforgeeks.org/problems/merge-k-sorted-linked-lists/1#
+https://leetcode.com/problems/merge-k-sorted-lists/description/
 
 of course original lists will get distorted .
 time : O(n log k)
@@ -9,42 +9,48 @@ space : O(k)
 
 
 // for min heap
-class compare {
-public:
-    bool operator()(Node*  &a , Node* &b) {
-        return a->data > b->data ;
+class Compare {
+    public:
+    bool operator() (ListNode *a, ListNode *b) {
+        return a->val > b->val; 
     }
 };
+
 
 class Solution {
 public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        int k = lists.size(); 
+        ListNode *res = NULL, *curr = res; 
+        ListNode *temp ;
+        if ( k == 0) return res; 
 
-    Node * mergeKLists(Node *arr[], int K)
-    {
-        Node *head = NULL ;
-        Node * curr = head  ;
-        priority_queue<Node * , vector<Node*> , compare > pq ; // using min heap
-
-        for (int i = 0 ; i < K ; ++i ) {
-            if (arr[i])pq.push(arr[i]) ;
-        }
-        Node *top  ;
-
-        while (!pq.empty()) {
-            top = pq.top() ;
-            pq.pop() ;
-            if (head == NULL ) {
-                head = top ;
-                curr = top ;
+        priority_queue<ListNode*, vector<ListNode *>, Compare > minHeap; 
+        for(int i = 0 ; i < k ; ++i) {
+            if ( lists[i]) {
+                minHeap.push(lists[i]);
             }
+        }
+
+        while(!minHeap.empty()) {
+            temp = minHeap.top() ; minHeap.pop(); 
+            // didn't find the head of the merged linked list yet.
+            if ( res == NULL) {
+                res = temp ; 
+                curr = temp ; 
+            }
+            // already found the head of the merged linked list. 
             else {
-                curr->next = top ;
-                curr = curr->next ;
+                curr->next=temp ; 
+                curr = curr->next; 
             }
-            if (top->next ) pq.push(top->next ) ;
+            // push the next element of this list to the minHeap
+            if ( temp->next ) {
+                minHeap.push(temp->next);
+            }
         }
-        return head;
+
+        return res; 
 
     }
 };
-
