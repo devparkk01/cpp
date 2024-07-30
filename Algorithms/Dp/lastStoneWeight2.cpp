@@ -3,6 +3,18 @@ https://leetcode.com/problems/last-stone-weight-ii/description/
 
 
 variation of subset sum problem which in turn is a variation of knapsack problem.
+
+
+Think of this as dividing the stones in two piles. first pile and second pile.
+We smash stones from the first pile with the stones from the second pile. 
+The idea is to minimise the resultant stones after smashing. 
+
+Ideally, we would want to divide the stones in two piles, in such a way that both the piles 
+have equal weight, so that we are left with no stones at the end. But this won't be possible always to 
+divide all stones into equal half. We start the algorithm with if it is possible to divide the stones
+into two pile such that both have equal weight, that means, if first pile has half the weights then 
+consequently second pile will have other half. 
+
 */
 
 #include<bits/stdc++.h>
