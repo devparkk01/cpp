@@ -4,9 +4,7 @@ using namespace std ;
 #define f(i , k , n ) for(int i = k ; i < n ; ++i )
 
 /*
-lower_bound(a ,a + n ,x ) returns the iterator pointing to the first occurencee of
-x , if x exists in the array , else it returns the iterator pointing to the next greater
-element
+lower_bound(a ,a + n ,x ) returns the iterator pointing to the first element greater than or equal to x.
 */
 
 
@@ -22,7 +20,7 @@ signed main () {
 
 	cout << lower_bound(v.begin() , v.end() , 5) - v.begin() << endl; // 2
 	cout << lower_bound(v.begin() , v.end() , 0 ) - v.begin() << endl; // 0
-
+	cout << lower_bound(v.begin(), v.end(), 25) - v.begin() << endl; // 6
 
 	return 0 ;
 

@@ -4,7 +4,7 @@ using namespace std ;
 #define f(i , k , n ) for(int i = k ; i < n ; ++i )
 
 /*
-upper_bound(a ,a + n ,x ) returns the iterator pointing to the element just greater than x
+upper_bound(a ,a + n ,x ) returns the iterator pointing to the first element just greater than x. 
 */
 
 
