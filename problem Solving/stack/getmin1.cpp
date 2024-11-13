@@ -1,39 +1,74 @@
 
-stack<int>s ; // normal stack
-stack<int>ss ; // support stack
 /*
-time for all operations : O(1) ,space : O(n)
+https://leetcode.com/problems/min-stack/description/
 */
 
+#include<bits/stdc++.h>
+using namespace std; 
 
-void push( int a) {
-	s.push(a) ;
-	if ( ss.empty()) ss.push(a) ;
-	else if (a <= ss.top() ) ss.push(a) ;
-}
+// first approach
+class MinStack {
+public:
+    stack<pair<int, int>>stk; 
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        if ( stk.empty() ){
+            stk.push({val, val});
+        } else {
+            int prevMin = stk.top().second; 
+            stk.push({val, min(prevMin, val)});
+        }
+    }
+    
+    void pop() {
+        stk.pop();
+    }
+    
+    int top() {
+        return stk.top().first; 
+    }
+    
+    int getMin() {
+        return stk.top().second; 
+    }
+};
 
-bool isFull( int n) {
-	if  ( s.size() >= n ) return 1 ;
-	else return 0 ;
-}
 
-bool isEmpty() {
-	if ( s.empty()) return 1 ;
-	else return 0 ;
-}
+// second approach
+class MinStack {
+public:
+    stack<int>stk;
+    stack<int>minStack; 
+    
+    MinStack() {
 
-int pop() {
-	if ( s.empty()) return -1 ;
-	int e = s.top( ) ;
-	s.pop() ;
+    }
+    
+    void push(int val) {
+        stk.push(val);
+        if (minStack.empty()) minStack.push(val);
+        else if ( val <= minStack.top()) {
+            minStack.push(val);
+        }
+    }
+    
+    void pop() {
+        int elem = stk.top(); 
+        stk.pop(); 
 
-	if ( e == ss.top()) ss.pop() ;
-	return e ;
-
-}
-
-int getMin() {
-	if ( ss.empty()) return -1 ;
-	else return ss.top() ;
-
-}
+        if (elem == minStack.top()) {
+            minStack.pop();
+        }
+    }
+    
+    int top() {
+        return stk.top();
+    }
+    
+    int getMin() {
+        return minStack.top(); 
+    }
+};
