@@ -2,7 +2,7 @@
  characters from/in str1 so as to transform it into str2.
 
 Input: str1 = "heap", str2 = "pea"
-Output: 3
+Output: 5
 
 */
 
