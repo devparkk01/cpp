@@ -46,7 +46,7 @@ vector<int> topoSort(int V, vector<int> adj[]) {
     }
 
     return topo;
-    // if in case, this graph is not DAG, then in that case topo will not contain all vertices of 
+    // if in case this graph is not a DAG then topo will not contain all vertices of 
     // the graph. Hence, this algorithm can be used to find if the graph contains a cycle. 
     // if it contains a cycle, then the total no vertices in topo will not be equal to V.
 }

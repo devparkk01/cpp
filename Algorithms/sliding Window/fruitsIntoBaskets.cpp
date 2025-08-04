@@ -1,6 +1,5 @@
 /*
-https://www.geeksforgeeks.org/problems/fruit-into-baskets-1663137462/1
-
+https://leetcode.com/problems/fruit-into-baskets/description/
 
 
 brute force: O(n*n)
@@ -10,34 +9,31 @@ sliding window = o(n)
 #include<bits/stdc++.h>
 using namespace std; 
 
-int totalFruits(int n, vector<int> &fruits) {
-    int maxFruits = 0 ;
-    int l = 0 ;
-    
-    // key: fruit type, value: no of fruit of that type 
-    // hashFruits store the count of fruit of a particular type currently in the basket
-    unordered_map<int, int > hashFruits; 
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        int maxFruits = 0 ; 
+        
+        // stores the counts of fruits for each fruit type currently in the basket
+        unordered_map<int, int >fruitsCount;  // key: fruit type, value: no of fruit of that type 
+        int l = 0; // left side of the window 
+        
+        for(int r = 0; r < fruits.size() ; ++r) {
+            fruitsCount[fruits[r]]++; // insert this fruit into the basket
 
-
-    for(int r  = 0 ; r < n ; ++r) {
-        hashFruits[fruits[r]]++; 
-
-        // keep removing elements from the hashFruits until its size becomes 2
-        while(l < r && hashFruits.size() > 2) {
-            hashFruits[fruits[l]]--;
-            if (hashFruits[fruits[l]] == 0) {
-                hashFruits.erase(fruits[l]);
+            while(fruitsCount.size() > 2 ) {
+                // keep moving the left pointer, ie. keep removing fruits from the basket from 
+                // left side 
+                fruitsCount[fruits[l]]--;
+                if(fruitsCount[fruits[l]] == 0) {
+                    fruitsCount.erase(fruits[l]);
+                }
+                l++; 
             }
-            l++; 
+            maxFruits = max(maxFruits, r - l + 1); 
+
         }
-        maxFruits = max(maxFruits, r - l + 1) ;
+        return maxFruits; 
+        
     }
-    
-    
-    return maxFruits; 
-    
-    
-}
-
-
-
+};

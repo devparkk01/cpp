@@ -10,6 +10,46 @@ window sliding method : time : O(n)
 #include<bits/stdc++.h>
 using namespace std;
 
+// Easy to understand code 
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<int>ans; ans.reserve(n);
+
+        deque<int>dq; 
+
+        // process first k elements
+        for(int r=0 ; r < k ; ++r) {
+            while(!dq.empty() && nums[r] > nums[dq.back()]) {
+                dq.pop_back();
+            }
+            dq.push_back(r);
+        }
+        // get the result for first window 
+        ans.push_back(nums[dq.front()]);
+
+        // process rest of the elements
+        for(int r = k ; r < n; ++r){
+            // extend the boundary towards the right 
+            while(!dq.empty() && nums[r] > nums[dq.back()]) {
+                dq.pop_back(); 
+            }
+            dq.push_back(r);
+
+            // move the window from left
+            if ( dq.front() == r-k ) {
+                dq.pop_front();
+            }
+
+            // get the result for current window 
+            ans.push_back(nums[dq.front()]);
+        }
+        return ans; 
+ 
+    }
+};
+
 vector<int>max_of_subarrays(int arr[], int n, int k)
 {
 	vector<int>ans ;
