@@ -8,35 +8,37 @@ contains duplicates ,and any number can be used only once
 
 class Solution {
 public:
-	vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-		sort(candidates.begin() , candidates.end() )  ;
-		vector<vector<int>>ans ;
-		vector<int>subset ;
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end() ); 
+        vector<vector<int>> ans; 
+        vector<int>cur; 
+        util(candidates, cur, ans, target, candidates.size() -1 );
+        return ans; 
+    }
 
-		find(candidates , target , 0 , subset, ans ) ;
+    void util(vector<int>&candidates, vector<int>&cur, vector<vector<int>>&ans, int target, int last){
+        if (target == 0 ) {
+            ans.push_back(cur);
+            return ; 
+        }
+        if ( last < 0 ) {
+            return ; 
+        }
 
-		return ans ;
-	}
+        // include 
+        if (target >= candidates[last] ) {
+            cur.push_back(candidates[last]);
+            util(candidates, cur, ans, target - candidates[last], last - 1);
+            cur.pop_back();
+        }
 
-	void find(vector<int>&candidates , int target , int start , vector<int>&subset , vector<vector<int>>&ans ) {
+        // exclude 
+        // remove duplicates
+        while(last > 0 && candidates[last] == candidates[last - 1]) {
+            last--; // keep moving towards left 
+        }
 
-		if (target == 0) {
-			ans.push_back(subset ) ;
-			return ;
-		}
-		if (start == candidates.size() ) return ;
+        util(candidates, cur, ans, target, last - 1);
 
-
-		for (int i = start ; i < candidates.size() ; ++i) {
-			if (candidates[i] > target ) continue ;
-			if (i > start && candidates[i] == candidates[i - 1 ]) continue ;
-			subset.push_back(candidates[i]) ;
-			find(candidates , target - candidates[i] , i + 1 , subset , ans ) ;
-			subset.pop_back() ;
-		}
-
-
-	}
-
+    }
 };
-

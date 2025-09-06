@@ -8,33 +8,27 @@ no duplicates , an element can be selected any no of times
 
 class Solution {
 public:
-	vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-		sort(candidates.begin() , candidates.end() )  ;
-		vector<vector<int>>ans ;
-		vector<int>subset ;
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans; 
+        vector<int>cur; 
+        util(candidates, cur, ans, target, candidates.size() -1 );
+        return ans; 
+    }
 
-		find(candidates , target , 0 , subset, ans ) ;
-
-		return ans ;
-	}
-
-	void find(vector<int>&candidates , int target , int start , vector<int>&subset , vector<vector<int>>&ans ) {
-
-		if (target == 0) {
-			ans.push_back(subset ) ;
-			return ;
-		}
-		if (start == candidates.size() ) return ;
-
-
-		for (int i = start ; i < candidates.size() ; ++i) {
-			if (candidates[i] > target ) continue ;
-			subset.push_back(candidates[i]) ;
-			find(candidates , target - candidates[i] , i  , subset , ans ) ;
-			subset.pop_back() ;
-		}
-
-
-	}
+    void util(vector<int>&candidates, vector<int>&cur, vector<vector<int>>&ans, int target, int last){
+        if (last < 0 ) return ; 
+        if (target == 0 ) {
+            ans.push_back(cur);
+            return ;
+        }
+        // include 
+        if (target >= candidates[last]) {
+            cur.push_back(candidates[last]);
+            util(candidates, cur, ans, target - candidates[last], last);
+            cur.pop_back(); 
+        }
+        // exclude 
+        util(candidates, cur, ans, target, last - 1);
+    }
 
 };
